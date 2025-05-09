@@ -16,8 +16,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 # *******************************************************************************
-# * This source code and the accompanying materials are made available under *
-# * the terms of the Apache License 2.0 which accompanies this distribution. *
+# * This source code and the accompanying materials are made available under
+# * the terms of the Apache License 2.0 which accompanies this distribution.
 # *******************************************************************************
 
 cmake_minimum_required(VERSION 3.22.1)
@@ -79,9 +79,7 @@ include_directories(
   ${MLIR_INCLUDE_DIRS}
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/mqss"
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/mqss/Utils"
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/mqss/QuantumResourceManager"
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/mqss/QuantumResourceManager/PassManager")
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/mqss/Common")
 
 # ###################### CUDAQ settings ###################################
 set(CUDAQ_MAIN_INCLUDE_DIR "${CUDAQ_SOURCE_DIR}/include")
@@ -106,3 +104,4 @@ if(NOT EXISTS ${CUDAQ_BINARY_DIR}/lib/libcudaq-mlir-runtime.so)
 endif()
 set(CUDAQ_TARGETS ${CUDAQ_MLIR_RUNTIME_PATH}/libcudaq-mlir-runtime.so)
 # ##############################################################################
+add_subdirectory(lib)
