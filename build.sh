@@ -106,7 +106,7 @@ fi
 
 # Build the cudaq-mlir-runtime target using Ninja
 echo "Building cudaq-mlir-runtime target with ${NUM_JOBS} jobs..."
-ninja -j"${NUM_JOBS}" cudaq-mlir-runtime
+ninja -j"${NUM_JOBS}" cudaq-mlir-runtime cudaq-common
 
 if [ $? -ne 0 ]; then
   echo "Failed to build cudaq-mlir-runtime target."

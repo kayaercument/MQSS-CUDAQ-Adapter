@@ -1,3 +1,25 @@
+# This code and any associated documentation is provided "as is"
+#
+# Copyright 2025 Munich Quantum Software Stack Project
+#
+# Licensed under the Apache License, Version 2.0 with LLVM Exceptions (the
+# "License"); you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# TODO
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations under
+# the License.
+#
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+# *******************************************************************************
+# * This source code and the accompanying materials are made available under *
+# * the terms of the Apache License 2.0 which accompanies this distribution. *
+# *******************************************************************************
+
 cmake_minimum_required(VERSION 3.22.1)
 project(
   QuantumResourceManager
@@ -39,7 +61,6 @@ find_package(nlohmann_json REQUIRED)
 # Find the Threads package
 find_package(Threads REQUIRED)
 find_package(rabbitmq-c REQUIRED)
-find_package(MLIRPasses REQUIRED)
 
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
@@ -51,24 +72,11 @@ if(NOT Boost_FOUND)
 endif()
 find_package(BoostUUID REQUIRED)
 
-# configure the MLIR Passes repo
-set(PASSES_SOURCE_DIR ${MLIRPasses_SOURCE_DIR})
-set(PASSES_INCLUDE_DIR "${PASSES_SOURCE_DIR}/include")
-set(PASSES_TB_INCLUDE_DIR "${MLIRPasses_BINARY_DIR}/include")
-include_directories(${PASSES_INCLUDE_DIR})
-include_directories(${PASSES_TB_INCLUDE_DIR})
-
-set(MQT_QMAP_INCLUDE_DIR "${mqt-qmap_SOURCE_DIR}/include/")
-set(MQT_QCEC_INCLUDE_DIR "${mqt-qcec_SOURCE_DIR}/include/")
-set(MQT_CORE_INCLUDE_DIR "${mqt-core_SOURCE_DIR}/include/mqt-core")
-
 # Add the include paths
 include_directories(
   BEFORE
   ${LLVM_INCLUDE_DIRS}
   ${MLIR_INCLUDE_DIRS}
-  ${MQT_QMAP_INCLUDE_DIR}
-  ${MQT_CORE_INCLUDE_DIR}
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/mqss"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/mqss/Utils"
