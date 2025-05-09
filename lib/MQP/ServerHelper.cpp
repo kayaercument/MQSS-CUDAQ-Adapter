@@ -32,11 +32,11 @@ SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 #include "common/ServerHelper.h"
 
-#include "JobStatus.h"
 #include "common/Logger.h"
 #include "common/RestClient.h"
 #include "cudaq.h"
 #include "cudaq/utils/cudaq_utils.h"
+#include "mqss/Common/JobStatus.hpp"
 
 #include <fstream>
 #include <iostream>
