@@ -37,6 +37,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -frtti -fexceptions")
 
 # Tell where to find fetch content, etc.
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+include(cmake/ExternalDependencies.cmake)
 
 find_package(MLIR REQUIRED CONFIG)
 message(STATUS "Using MLIRConfig.cmake in: ${MLIR_DIR}")
@@ -105,3 +106,9 @@ endif()
 set(CUDAQ_TARGETS ${CUDAQ_MLIR_RUNTIME_PATH}/libcudaq-mlir-runtime.so)
 # ##############################################################################
 add_subdirectory(lib)
+
+if(BUILD_CUDAQ_ADAPTER_TESTS)
+  enable_testing()
+  include(GoogleTest)
+  add_subdirectory(tests)
+endif()
