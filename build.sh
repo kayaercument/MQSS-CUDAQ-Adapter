@@ -106,7 +106,7 @@ fi
 
 # Build the cudaq-mlir-runtime target using Ninja
 echo "Building cudaq-mlir-runtime target with ${NUM_JOBS} jobs..."
-ninja -j"${NUM_JOBS}" cudaq-mlir-runtime cudaq-common
+ninja -j"${NUM_JOBS}" cudaq-common cudaq cudaq-builder cudaq-mlir-runtime cudaq-rest-qpu nvqir nvqir-qpp cudaq-platform-default cudaq-operator
 
 if [ $? -ne 0 ]; then
   echo "Failed to build cudaq-mlir-runtime target."
@@ -127,6 +127,7 @@ cmake .. \
   -DMLIR_DIR="${MLIR_DIR}" \
   -DClang_DIR="${CLANG_DIR}" \
   -DLLVM_DIR="${LLVM_DIR}" \
+  -DBUILD_CUDAQ_ADAPTER_TESTS="${BUILD_TESTS}"\
   -DCUDAQ_SOURCE_DIR="${CUDAQ_DIR}"
 
 if [ $? -ne 0 ]; then
