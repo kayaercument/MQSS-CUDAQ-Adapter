@@ -1,2 +1,2 @@
-# MQP-CUDAQ-Provider
+# MQSS-CUDAQ-Adapter
 Name to be changed accordingly
