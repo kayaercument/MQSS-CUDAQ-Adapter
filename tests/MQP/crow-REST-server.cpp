@@ -269,6 +269,7 @@ void startServer(int port) {
   CROW_ROUTE(app, "/login")
       .methods(crow::HTTPMethod::POST)([](const crow::request &req) {
         // Extract the Authorization header from the request
+        std::cout << "Login" << std::endl;
         auto auth_header = req.get_header_value("Authorization");
 
         // If the Authorization header is missing or empty, return a 401
@@ -291,6 +292,7 @@ void startServer(int port) {
   CROW_ROUTE(app, "/job")
       .methods(crow::HTTPMethod::POST)([](const crow::request &req) {
         // Get the Authorization header
+        std::cout << "job" << std::endl;
         auto authHeader = req.get_header_value("Authorization");
 
         // Check if the Authorization header is provided, if not return 401
@@ -312,14 +314,14 @@ void startServer(int port) {
         std::string program = jobData["program"].s();
 
         // Log job information
-        /*std::cout << "Posting job with name = " << jobName << ", count = " <<
-         * jobCount << std::endl;*/
-        // std::cout << "Quake " <<std::endl << program << std::endl;
+        std::cout << "Posting job with name = " << jobName
+                  << ", count = " << jobCount << std::endl;
+        std::cout << "Quake " << std::endl << program << std::endl;
         std::string kernelName = getKernelName(program);
         // std::cout << "Kernel Name: " << kernelName << std::endl;
 
         std::string qirCode = lowerQuakeCode(program, kernelName);
-        // std::cout << "QIR: " << std::endl << qirCode << std::endl;
+        std::cout << "QIR: " << std::endl << qirCode << std::endl;
 
         std::ofstream outFile(std::string("./tempCircuit.txt"),
                               std::ios::out | std::ios::trunc);
@@ -376,6 +378,7 @@ void startServer(int port) {
   CROW_ROUTE(app, "/job/<string>/status")
       .methods(crow::HTTPMethod::GET)(
           [](const crow::request &req, std::string jobId) {
+            std::cout << "Job Status" << std::endl;
             return getJobStatus(jobId);
           });
 
@@ -383,6 +386,7 @@ void startServer(int port) {
   CROW_ROUTE(app, "/job/<string>/result")
       .methods(crow::HTTPMethod::GET)(
           [](const crow::request &req, std::string jobId) {
+            std::cout << "Results" << std::endl;
             return getJob(jobId);
           });
 

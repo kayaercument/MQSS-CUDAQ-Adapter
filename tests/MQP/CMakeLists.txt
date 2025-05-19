@@ -15,7 +15,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND NOT APPLE)
   target_link_options(test-mqp-mqss PRIVATE -Wl,--no-as-needed)
 endif()
 target_compile_definitions(test-mqp-mqss PRIVATE -DNVQIR_BACKEND_NAME=mqssMQP)
-target_include_directories(test-mqp-mqss PRIVATE ../..)
+target_include_directories(test-mqp-mqss PRIVATE ..)
 target_link_libraries(
   test-mqp-mqss
   PRIVATE fmt::fmt-header-only
@@ -28,6 +28,7 @@ target_link_libraries(
           ${CUDAQ_MLIR_RUNTIME_PATH}/libnvqir.so
           ${CUDAQ_MLIR_RUNTIME_PATH}/libnvqir-qpp.so
           ${CUDAQ_MLIR_RUNTIME_PATH}/libcudaq-platform-default.so
+          mqss-cudaq-mqp-adapter
           ${GTEST_LIBRARIES})
 
 # set(CMAKE_CXX_STANDARD 17)
@@ -53,14 +54,12 @@ target_link_libraries(
 
 configure_file(
   "MQSS-MQP-StartServerAndTest.sh.in"
-  "${CMAKE_BINARY_DIR}/unittests/backends/mqssMQP/MQSS-MQP-StartServerAndTest.sh"
-  @ONLY)
+  "${CMAKE_BINARY_DIR}/tests/MQP/MQSS-MQP-StartServerAndTest.sh" @ONLY)
 configure_file(
   "SimulateKernelLoweredToLLVM.py.in"
-  "${CMAKE_BINARY_DIR}/unittests/backends/mqssMQP/SimulateKernelLoweredToLLVM.py"
-  @ONLY)
+  "${CMAKE_BINARY_DIR}/tests/MQP/SimulateKernelLoweredToLLVM.py" @ONLY)
 
 add_test(
   NAME mqp-mqss-cpp-tests
   COMMAND bash MQSS-MQP-StartServerAndTest.sh
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/unittests/backends/mqssMQP/)
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests/MQP/)

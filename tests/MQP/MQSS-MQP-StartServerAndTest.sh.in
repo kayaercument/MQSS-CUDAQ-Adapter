@@ -9,7 +9,7 @@
 # ============================================================================ #
 
 checkServerConnection() {
-  PYTHONPATH=@CMAKE_BINARY_DIR@/python @Python_EXECUTABLE@ - << EOF
+  python3 - << EOF
 import socket
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

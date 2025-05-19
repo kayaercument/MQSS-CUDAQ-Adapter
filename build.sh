@@ -14,7 +14,8 @@ BUILD_TYPE="Release"  # Default: Release mode
 MLIR_DIR="/opt/llvm/lib/cmake/mlir"
 CLANG_DIR="/opt/llvm/lib/cmake/clang"
 LLVM_DIR="/opt/llvm/lib/cmake/llvm"
-
+CUDAQ_BUILD_TESTS=FALSE
+export CUDAQ_BUILD_TESTS
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -89,7 +90,12 @@ fi
 cd "${CUDAQ_DIR}" || { echo "Failed to navigate to ${CUDAQ_DIR}."; exit 1; }
 
 # Create a build directory
-mkdir -p build && cd build || { echo "Failed to create or navigate to build directory."; exit 1; }
+mkdir -p build && cd build || { echo "Failed to create or navigate to build directory.";
+exit 1; }
+mkdir -p build  || { echo "Failed to create build directory."; exit 1; }
+
+# here I have to update those files that I have to build the MQSS target backends
+#bash scripts/build_cudaq.sh -j"${NUM_JOBS}"
 
 # Configure CUDA Quantum using CMake
 echo "Configuring CUDA Quantum with CMake..."
@@ -100,7 +106,7 @@ cmake -G Ninja \
   ..
 
 if [ $? -ne 0 ]; then
-  echo "CMake configuration failed."
+  echo "Cuda quantum with MQSS interfaces failed to build."
   exit 1
 fi
 
@@ -128,6 +134,7 @@ cmake .. \
   -DClang_DIR="${CLANG_DIR}" \
   -DLLVM_DIR="${LLVM_DIR}" \
   -DBUILD_CUDAQ_ADAPTER_TESTS="${BUILD_TESTS}"\
+  -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
   -DCUDAQ_SOURCE_DIR="${CUDAQ_DIR}"
 
 if [ $? -ne 0 ]; then
