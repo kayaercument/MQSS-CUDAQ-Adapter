@@ -1,11 +1,12 @@
 #!/bin/bash
 # --- Configuration ---
-FORK_URL=" https://github.com/mletras89/cuda-quantum.git"
+FORK_URL="https://github.com/mletras89/cuda-quantum.git"
 UPSTREAM_URL="https://github.com/NVIDIA/cuda-quantum.git"
 FORK_BRANCH="MQSS-Integration"
 BASE_BRANCH="main" # or master, depending on upstream
-FOLDER_PATH="runtime/common"
+FOLDER_PATH="runtime"
 PATCH_FILE="feature_patch.diff"
+SUBMODULE_PATH="./extern/cuda-quantum"
 
 # --- Temporary clone directory ---
 TEMP_DIR=$(mktemp -d)
@@ -26,8 +27,25 @@ git diff "upstream/$BASE_BRANCH".."$FORK_BRANCH" -- "$FOLDER_PATH" > "$PATCH_FIL
 
 echo "Patch saved to: $TEMP_DIR/$PATCH_FILE"
 
-# Optional: copy patch somewhere else before deleting TEMP_DIR
-# cp "$PATCH_FILE" /desired/path/
+# --- Apply patch to submodule ---
+cd - > /dev/null || exit 1
+if [ ! -d "$SUBMODULE_PATH" ]; then
+  echo "Error: Submodule path '$SUBMODULE_PATH' does not exist."
+  rm -rf "$TEMP_DIR"
+  exit 1
+fi
+
+echo "Applying patch to submodule at '$SUBMODULE_PATH'..."
+cd "$SUBMODULE_PATH" || exit 1
+
+git apply "$TEMP_DIR/$PATCH_FILE"
+if [ $? -ne 0 ]; then
+  echo "Error: Failed to apply patch."
+  rm -rf "$TEMP_DIR"
+  exit 1
+fi
+
+echo "Patch successfully applied to $SUBMODULE_PATH."
 
 # Clean up
 cd ..
