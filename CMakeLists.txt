@@ -105,7 +105,6 @@ if(NOT EXISTS ${CUDAQ_BINARY_DIR}/lib/libcudaq-mlir-runtime.so)
 endif()
 set(CUDAQ_TARGETS ${CUDAQ_MLIR_RUNTIME_PATH}/libcudaq-mlir-runtime.so)
 # ##############################################################################
-add_subdirectory(lib)
 
 if(BUILD_CUDAQ_ADAPTER_TESTS)
   enable_testing()
