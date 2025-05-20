@@ -44,3 +44,4 @@ build
 *.lib
 git-emoji-commit.sh
 temp
+extern
