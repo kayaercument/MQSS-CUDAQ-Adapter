@@ -63,28 +63,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 BUILD_DIR=${CURRENT_DIR}"/build"
-DEPS_DIR="${BUILD_DIR}/_deps"
+DEPS_DIR="${CURRENT_DIR}/extern"
 CUDAQ_DIR="${DEPS_DIR}/cuda-quantum"
-CUDAQ_REPO="https://github.com/NVIDIA/cuda-quantum.git"
-
-PASSES_DIR="${DEPS_DIR}/cuda-quantum"
-PASSES_REPO="https://github.com/Munich-Quantum-Software-Stack/passes.git"
 
 # Create directories if they don't exist
 mkdir -p "${BUILD_DIR}"
-mkdir -p "${DEPS_DIR}"
-
-# Clone the CUDA Quantum repository
-echo "Cloning CUDA Quantum repository into ${CUDAQ_DIR}..."
-if [ ! -d "${CUDAQ_DIR}" ]; then
-  git clone "${CUDAQ_REPO}" "${CUDAQ_DIR}"
-  if [ $? -ne 0 ]; then
-    echo "Failed to clone CUDA Quantum repository."
-    exit 1
-  fi
-else
-  echo "CUDA Quantum repository already exists at ${CUDAQ_DIR}. Skipping clone."
-fi
 
 # Navigate to the CUDA Quantum directory
 cd "${CUDAQ_DIR}" || { echo "Failed to navigate to ${CUDAQ_DIR}."; exit 1; }
