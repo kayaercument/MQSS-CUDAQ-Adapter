@@ -20,4 +20,5 @@
 # * the terms of the Apache License 2.0 which accompanies this distribution.
 # *****************************************************************************
 
-add_subdirectory(MQP)
+add_subdirectory(mqss-mqp)
+add_subdirectory(mqss-hpc)
