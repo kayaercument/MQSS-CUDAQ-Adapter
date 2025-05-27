@@ -46,7 +46,8 @@ target_link_libraries(
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(RABBITMQ REQUIRED librabbitmq)
 include_directories(${RABBITMQ_INCLUDE_DIRS})
-add_executable(RabbitMQ-Consumer RabbitMQ-Consumer.cpp)
+add_executable(RabbitMQ-Consumer ../../extern/QRM/src/common/RabbitMQServer.cpp
+                                 RabbitMQ-Consumer.cpp)
 # Link with uuid library
 target_link_libraries(
   RabbitMQ-Consumer
