@@ -2,6 +2,7 @@
 # --- Configuration ---
 FORK_URL="https://github.com/mletras89/cuda-quantum.git"
 UPSTREAM_URL="https://github.com/NVIDIA/cuda-quantum.git"
+UPSTREAM_COMMIT="1d62d8d"
 FORK_BRANCH="MQSS-Integration"
 BASE_BRANCH="main" # or master, depending on upstream
 FOLDER_PATH="runtime"
@@ -20,10 +21,19 @@ git checkout "$FORK_BRANCH"
 
 echo "Adding upstream..."
 git remote add upstream "$UPSTREAM_URL"
-git fetch upstream "$BASE_BRANCH"
+git fetch upstream
+
+if [ -n "$UPSTREAM_COMMIT" ]; then
+  echo "Checking out specific upstream commit '$UPSTREAM_COMMIT'..."
+  git checkout -b upstream-commit "$UPSTREAM_COMMIT"
+  BASE_REF="upstream-commit"
+else
+  BASE_REF="upstream/$BASE_BRANCH"
+fi
 
 echo "Generating patch for folder '$FOLDER_PATH'..."
-git diff "upstream/$BASE_BRANCH".."$FORK_BRANCH" -- "$FOLDER_PATH" > "$PATCH_FILE"
+#git diff "upstream/$BASE_BRANCH".."$FORK_BRANCH" -- "$FOLDER_PATH" > "$PATCH_FILE"
+git diff "$BASE_REF".."$FORK_BRANCH" -- "$FOLDER_PATH" > "$PATCH_FILE"
 
 echo "Patch saved to: $TEMP_DIR/$PATCH_FILE"
 
