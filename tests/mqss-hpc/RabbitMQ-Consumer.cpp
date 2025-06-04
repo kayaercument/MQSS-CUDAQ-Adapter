@@ -118,8 +118,7 @@ std::string trim(const std::string &str) {
 }
 
 std::string getKernelName(const std::string &program) {
-  std::regex patternKernel(
-      "func\\.func @__nvqpp__mlirgen____([^\\(\\)]+)\\(\\)");
+  std::regex patternKernel("func\\.func @__nvqpp__mlirgen__([^\\(\\)]+)\\(\\)");
   std::smatch matches;
   if (!std::regex_search(program, matches, patternKernel))
     throw std::runtime_error(
