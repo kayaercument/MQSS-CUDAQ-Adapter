@@ -24,3 +24,52 @@ SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 </div>
 
 # MQSS CUDA-Q Adapter
+
+<!-- [DOXYGEN MAIN] -->
+
+The MQSS CUDA-Q Adapter serves as a bridge between the CUDA-Q programming interface and the Munich
+Quantum Software Stack (MQSS). It enables seamless integration by providing two primary access
+points: the Munich Quantum Portal (MQP), a cloud-based interface for remote quantum job submission,
+and a high-performance computing (HPC) access point for users working on local or institutional HPC
+resources. This module allows developers to write quantum-classical hybrid programs using CUDA-Q
+while leveraging MQSS infrastructure for optimization, execution and quantum devices management.
+
+<!-- [DOXYGEN MAIN] -->
+<div align="center">
+  <img style="min-width: 200px !important; width: 30%;" src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNi4wIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjQgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTk2IDBDNDMgMCAwIDQzIDAgOTZMMCA0MTZjMCA1MyA0MyA5NiA5NiA5NmwyODggMCAzMiAwYzE3LjcgMCAzMi0xNC4zIDMyLTMycy0xNC4zLTMyLTMyLTMybDAtNjRjMTcuNyAwIDMyLTE0LjMgMzItMzJsMC0zMjBjMC0xNy43LTE0LjMtMzItMzItMzJMMzg0IDAgOTYgMHptMCAzODRsMjU2IDAgMCA2NEw5NiA0NDhjLTE3LjcgMC0zMi0xNC4zLTMyLTMyczE0LjMtMzIgMzItMzJ6bTMyLTI0MGMwLTguOCA3LjItMTYgMTYtMTZsMTkyIDBjOC44IDAgMTYgNy4yIDE2IDE2cy03LjIgMTYtMTYgMTZsLTE5MiAwYy04LjggMC0xNi03LjItMTYtMTZ6bTE2IDQ4bDE5MiAwYzguOCAwIDE2IDcuMiAxNiAxNnMtNy4yIDE2LTE2IDE2bC0xOTIgMGMtOC44IDAtMTYtNy4yLTE2LTE2czcuMi0xNiAxNi0xNnoiLz48L3N2Zz4=" alt="Documentation" />
+  </a>
+</div>
+
+## FAQ
+
+<!-- [DOXYGEN FAQ] -->
+
+### What is MQSS?
+
+**MQSS** stands for _Munich Quantum Software Stack_, which is a project of the _Munich Quantum
+Valley (MQV)_ initiative and is jointly developed by the _Leibniz Supercomputing Centre (LRZ)_ and
+the Chairs for _Design Automation (CDA)_, and for _Computer Architecture and Parallel Systems
+(CAPS)_ at TUM. It provides a comprehensive compilation and runtime infrastructure for on-premise
+and remote quantum devices, support for modern compilation and optimization techniques, and enables
+both current and future high-level abstractions for quantum programming. This stack is designed to
+be capable of deployment in a variety of scenarios via flexible configuration options, including
+stand-alone scenarios for individual systems, cloud access to a variety of devices as well as tight
+integration into HPC environments supporting quantum acceleration. Within the MQV, a concrete
+instance of the MQSS is deployed at the LRZ for the MQV, serving as a single access point to all of
+its quantum devices via multiple compatible access paths, including a web portal, command line
+access via web credentials as well as the option for hybrid access with tight integration with LRZ's
+HPC systems. It facilitates the connection between end-users and quantum computing platforms by its
+integration within HPC infrastructures, such as those found at the LRZ.
+
+### Where is the code?
+
+The code is publicly available and hosted on GitHub:
+https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter
+
+### Under which license is the **Quantum Resource Manager (QRM)** released?
+
+The Quantum Resource Manager (QRM) is released under the Apache License v2.0 with LLVM Exceptions.
+See [LICENSE](TODO) for more information. Any contribution to the project is assumed to be under the
+same license.
+
+<!-- [DOXYGEN FAQ] -->
