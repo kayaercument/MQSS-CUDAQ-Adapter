@@ -23,4 +23,4 @@ SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
   </picture>
 </div>
 
-# Munich Quantum Software Stack (MQSS) CUDA-Q Adapter
+# MQSS CUDA-Q Adapter
