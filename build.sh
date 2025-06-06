@@ -112,7 +112,7 @@ echo "Configuring the MQSS CudaQ Adapter repository CMake..."
 cmake .. \
   -DCMAKE_C_COMPILER=gcc \
   -DCMAKE_CXX_COMPILER=g++ \
-  -DBUILD_WITH_DOCS=ON \
+  -DBUILD_CUDAQ_ADAPTER_DOCS="${BUILD_DOCS}"\
   -DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}\
   -DMLIR_DIR="${MLIR_DIR}" \
   -DClang_DIR="${CLANG_DIR}" \
