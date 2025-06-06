@@ -76,15 +76,15 @@ As shown in the diagram, the user's code interfaces with the CUDA-Q API, which m
 simulation or remote execution. The MQSS CUDA-Q Adapter fits into this remote execution path through
 two main access points:
 
--**HPC Execution:** The quantum job is routed from RemoteRESTQPU to the HPC node, then through an
-Executor and a RabbitMQ Client, finally reaching the MQSS HPC Adapter. This path is tailored for
-users running from high-performance computing environments and ensures compatibility with MQSS job
-management infrastructure.
+- **HPC Execution:** The quantum job is routed from RemoteRESTQPU to the HPC node, then through an
+  Executor and a RabbitMQ Client, finally reaching the MQSS HPC Adapter. This path is tailored for
+  users running from high-performance computing environments and ensures compatibility with MQSS job
+  management infrastructure.
 
--**Cloud Access Path via Munich Quantum Portal (MQP)**: Alternatively, users may access MQSS
-services through the Munich Quantum Portal (MQP). Jobs are sent via the same core logic, eventually
-reaching the MQSS MQP Adapter, which handles cloud-based dispatching of quantum workloads to target
-hardware or simulators supported by MQSS.
+- **Cloud Access Path via Munich Quantum Portal (MQP)**: Alternatively, users may access MQSS
+  services through the Munich Quantum Portal (MQP). Jobs are sent via the same core logic,
+  eventually reaching the MQSS MQP Adapter, which handles cloud-based dispatching of quantum
+  workloads to target hardware or simulators supported by MQSS.
 
 Together, these adapters abstract away the complexity of targeting specific hardware or services,
 allowing CUDA-Q users to compile, submit, and retrieve quantum results through the MQSS. The MQSS
