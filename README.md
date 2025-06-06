@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 with LLVM Exceptions (the
 "License"); you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-TODO
+https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter/blob/develop/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -66,6 +66,30 @@ integration within HPC infrastructures, such as those found at the LRZ.
 <div align="center">
     <img src="./docs/_static/MQSS-Client-and-router.png" width="80%">
 </div>
+
+The MQSS CUDA-Q Adapter is a middleware module designed to bridge the CUDA-Q programming interface
+with the Munich Quantum Software Stack (MQSS). Its purpose is to enable users who develop quantum
+applications using the CUDA-Q API—whether in C++ or Python—to transparently execute their quantum
+kernels on MQSS-supported backends.
+
+As shown in the diagram, the user's code interfaces with the CUDA-Q API, which manages either local
+simulation or remote execution. The MQSS CUDA-Q Adapter fits into this remote execution path through
+two main access points:
+
+-**HPC Execution:** The quantum job is routed from RemoteRESTQPU to the HPC node, then through an
+Executor and a RabbitMQ Client, finally reaching the MQSS HPC Adapter. This path is tailored for
+users running from high-performance computing environments and ensures compatibility with MQSS job
+management infrastructure.
+
+-**Cloud Access Path via Munich Quantum Portal (MQP)**: Alternatively, users may access MQSS
+services through the Munich Quantum Portal (MQP). Jobs are sent via the same core logic, eventually
+reaching the MQSS MQP Adapter, which handles cloud-based dispatching of quantum workloads to target
+hardware or simulators supported by MQSS.
+
+Together, these adapters abstract away the complexity of targeting specific hardware or services,
+allowing CUDA-Q users to compile, submit, and retrieve quantum results through the MQSS. The MQSS
+CUDA-Q Adapter ensures smooth interoperability and helps integrate CUDA-Q's compiler infrastructure
+with MQSS's distributed quantum computing ecosystem.
 
 ### Where is the code?
 
