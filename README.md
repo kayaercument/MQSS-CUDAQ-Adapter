@@ -64,7 +64,7 @@ integration within HPC infrastructures, such as those found at the LRZ.
 ### What is the MQSS CUDA-Q Adapter?
 
 <div align="center">
-    <img src="./docs/_static/MQSS-Client-and-router.png" width="70%">
+    <img src="./docs/_static/MQSS-Client-and-router.png" width="80%">
 </div>
 
 ### Where is the code?
