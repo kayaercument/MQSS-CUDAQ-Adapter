@@ -61,15 +61,20 @@ access via web credentials as well as the option for hybrid access with tight in
 HPC systems. It facilitates the connection between end-users and quantum computing platforms by its
 integration within HPC infrastructures, such as those found at the LRZ.
 
+### What is the MQSS CUDA-Q Adapter?
+
+<div align="center">
+    <img src="./docs/_static/MQSS-Client-and-router.png" width="100%">
+</div>
+
 ### Where is the code?
 
 The code is publicly available and hosted on GitHub:
 https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter
 
-### Under which license is the **Quantum Resource Manager (QRM)** released?
+### Under which license is the **MQSS CUDA-Q Adapter** released?
 
-The Quantum Resource Manager (QRM) is released under the Apache License v2.0 with LLVM Exceptions.
-See
+The MQSS CUDA-Q Adapter is released under the Apache License v2.0 with LLVM Exceptions. See
 [LICENSE](https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter/blob/develop/LICENSE)
 for more information. Any contribution to the project is assumed to be under the same license.
 
