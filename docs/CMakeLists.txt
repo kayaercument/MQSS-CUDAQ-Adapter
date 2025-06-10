@@ -36,13 +36,14 @@ file(GLOB_RECURSE DOXYGEN_INPUT_FILES ${PROJECT_SOURCE_DIR}/include/*.hpp
 # The order the files with the static content are added here influences their
 # order in the generated documentation.
 set(DOXYGEN_INPUT_DIRS
-    ${DOXYGEN_INPUT_DIRS}
+    # ${DOXYGEN_INPUT_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/index.md
     ${CMAKE_CURRENT_SOURCE_DIR}/faq.md
-    ${CMAKE_CURRENT_SOURCE_DIR}/guide.md
-    ${CMAKE_CURRENT_SOURCE_DIR}/cudaq-decompositions.md
-    ${CMAKE_CURRENT_SOURCE_DIR}/cudaq-transpiler.md
-    ${CMAKE_CURRENT_SOURCE_DIR}/templates.md)
+    # ${CMAKE_CURRENT_SOURCE_DIR}/guide.md
+    # ${CMAKE_CURRENT_SOURCE_DIR}/cudaq-decompositions.md
+    # ${CMAKE_CURRENT_SOURCE_DIR}/cudaq-transpiler.md
+    # ${CMAKE_CURRENT_SOURCE_DIR}/templates.md
+)
 # ${CMAKE_CURRENT_SOURCE_DIR}/tests.md
 
 # By default the files are separated by a semicolon. This is not what Doxygen
@@ -97,13 +98,12 @@ set(PROJECT_LOGO "mqss_logo.svg")
 # DOXYGEN_INPUT_DIRS.
 configure_file(${DOXYGEN_CONFIG_FILE_IN} ${DOXYGEN_CONFIG_FILE_OUT} @ONLY)
 
-message(STATUS "Doxygen input files: ${DOXYGEN_INPUT_FILES}")
+# message(STATUS "Doxygen input files: ${DOXYGEN_INPUT_FILES}")
 
 # Create a custom command to run Doxygen
 add_custom_command(
   OUTPUT ${DOXYGEN_OUTPUT_DIR}/html/index.html
-  DEPENDS ${DOXYGEN_INPUT_FILES}
-          ${DOXYGEN_CONFIG_FILE_IN}
+  DEPENDS ${DOXYGEN_CONFIG_FILE_IN}
           ${CMAKE_CURRENT_SOURCE_DIR}/header.html
           ${CMAKE_CURRENT_SOURCE_DIR}/layout.xml
           ${CMAKE_CURRENT_SOURCE_DIR}/style.css
