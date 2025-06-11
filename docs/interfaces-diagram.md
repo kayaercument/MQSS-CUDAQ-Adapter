@@ -139,7 +139,7 @@ MQP** access. Below is a step-by-step description of the flow, across the involv
 
 - Results are passed back:
 
-  - From `RemoteRESTQPU` → `CUDA-Q Runtime` → `User Code``.
+  - From `RemoteRESTQPU` → `CUDA-Q Runtime` → `User Code`.
 
 For more information about how to extend CUDA-Q remote devices via REST API, please refer to
 [Extending CUDA-Q with a new Hardware Backend](https://nvidia.github.io/cuda-quantum/latest/using/extending/backend.html).
@@ -225,4 +225,4 @@ CUDA-Q MQSS Adapter using the HPC access. Here's a step-by-step breakdown of the
 
 - Results are passed back:
 
-  - From `HPCQPU` → `CUDA-Q Runtime` → `User Code``.
+  - From `HPCQPU` → `CUDA-Q Runtime` → `User Code`.
