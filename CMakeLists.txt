@@ -114,3 +114,8 @@ if(BUILD_CUDAQ_ADAPTER_TESTS)
   include(GoogleTest)
   add_subdirectory(tests)
 endif()
+
+# add documentation
+if(BUILD_CUDAQ_ADAPTER_DOCS)
+  add_subdirectory(docs)
+endif()
