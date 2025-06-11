@@ -1,6 +1,7 @@
-# Development Guide
+# Installation Guide
 
 <!-- IMPORTANT: Keep the line above as the first line. -->
+
 <!----------------------------------------------------------------------------
 Copyright 2024 Munich Quantum Software Stack Project
 
@@ -8,7 +9,7 @@ Licensed under the Apache License, Version 2.0 with LLVM Exceptions (the
 "License"); you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-https://github.com/Munich-Quantum-Software-Stack/passes/blob/develop/LICENSE
+https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter/blob/develop/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -21,56 +22,35 @@ SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 <!-- This file is a static page and included in the CMakeLists.txt file. -->
 
-Ready to contribute to the MQSS CUDA-Q Adapter? This guide will help you get started.
+Ready to use the MQSS CUDA-Q Adapter? This guide will help you get started.
 
-## Installing LLVM/MLIR
+## Installing CUDA-Q
 
-Since the MQSS compiler is based on LLVM/MLIR infrastructure and CudaQ compiler, your system must
-contain an installation of the LLVM project as a main prerequisite.
+Since the MQSS CUDA-Q Adapter is a plugin of the NVIDIA CUDA-Quantum (CUDA-Q) programming interface,
+your system must contain an installation of CUDA-Q as a main prerequisite.
 
-We recommend using the scripts given by CudaQ (see
-<https://github.com/NVIDIA/cuda-quantum/tree/main/scripts>) . Those scripts help install LLVM/MLIR.
-
-We recommend `clang16` as toolchain for the compilation of the LLVM project. Use the script
-`install_toolchain.sh` as follows:
-
-```sh
- bash scripts/install_toolchain.sh -t clang16
-```
-
-Then, you can install LLVM/MLIR and the prerequisites required by CudaQ by running:
-
-```sh
- LLVM_PROJECTS="clang;lld;mlir;python-bindings;compiler-rt"  bash scripts/install_prerequisites.sh
-```
-
-\note Do not forget to include `compiler-rt` in the `LLVM_PROJECTS`. This is required by some of the
-MQSS MLIR passes. If you do not include it, the project will not compile.
+We recommend to follow the instructions of installation described in the following link:
+[CUDA-Q Documentation](https://nvidia.github.io/cuda-quantum/latest/using/quick_start.html#install-cuda-q)
 
 ## Initial Setup
 
-1. Fork the Passes repository on GitHub (see
-   <https://github.com/Munich-Quantum-Software-Stack/passes>).
-
-2. Clone your fork locally
+1. Clone the MQSS CUDA-Q Adapter:
 
    ```sh
-   git clone https://forked-url/passes
+   git clone https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter
    ```
 
-3. Change into the project directory
+2. Change into the project directory:
 
    ```sh
-   cd passes
+   cd MQSS-CUDAQ-Adapter
    ```
 
-4. Create a branch for local development
+3. Run the following script to configure this project and set up the MQSS CUDA-Q Adapter:
 
    ```sh
-   git checkout -b name-of-your-bugfix-or-feature
+   bash generate_and_apply_patch.sh
    ```
-
-   Now you can make your changes locally.
 
 ## Alternative: Visual Studio Code DevContainer (Strongly recommended)
 
@@ -81,35 +61,33 @@ ensure that the development environment is the same across all team members, reg
 host machine or operating system.
 
 - Open the repository in VS-code
-- Use the Dev Container plugin to Open Folder in Container. This should pull and install LLVM/MLIR
-  and the required dependencies.
+- Use the Dev Container plugin to Open Folder in Container. This should pull and install CUDA-Q and
+  the required dependencies.
 
 The previous steps creates an isolated environment where you can tests this project. The project is
 located:
 
 ```shell
-cd /workspaces/passes
+cd /workspaces/MQSS-CUDAQ-Adapter
 ```
 
-## Working on Source Code
+### Configure and Build
 
 Building the project requires a C++ compiler supporting _C11_ and a minimum CMake version of _3.19_.
 The example devices and the tests require a C++ compiler supporting _C++17_ and _C++20_ dialects.
 
-### Configure and Build
-
-This collection of MLIR passes uses CMake as its build system. However, we provide an script
-`build.sh` that first builds CudaQ library `cudaq-mlir-runtime`. Then, the script builds the MQSS
-passes project. You can configure and build the project as follows:
+The MQSS CUDA-Q Adapter uses CMake as its build system. However, we provide an script `build.sh`
+that first builds the required Cuda-Q libraries. Then, the script builds the MQSS CUDA-Q Adapter
+project. You can configure and build the project as follows:
 
 ```shell
 bash build.sh --jobs 5 --debug --mlir-dir "dir-to-mlir" --clang-dir "dir-to-clang"
-              --llvm-dir "dir-to-llvm" --build-tests --build-docs --build-tools
+              --llvm-dir "dir-to-llvm" --build-tests --build-docs
 ```
 
 In the following, we describe each of the arguments accepted by `build.sh`.
 
-- `--jobs` (**optional**) The number of jobs utilized to configure and compile the project. If not
+- `--jobs` (**optional**) The number of jobs utilized to configure and compile this project. If not
   specified, a single job is used to compile the project.
 - `--debug` (**optional**) Used to show debug information. If you want to build the project without
   debug information, do not include it.
@@ -118,24 +96,43 @@ In the following, we describe each of the arguments accepted by `build.sh`.
 - `--llvm-dir` Path of your LLVM installation.
 - `--build-tests` (**optional**) Include it if you want to build the tests of this project.
 - `--build-docs` (**optional**) Include it if you want to build this documentation.
-- `--build-tools` (**optional**) Include it if you want to build additional tools.
+
+### Installing
+
+To install the MQSS CUDA-Q Adapter into your local CUDA-Q installation, you have to run the
+following script:
+
+```shell
+bash MQSS-CUDA-Q-Adapter-install.sh --cudaq-install-dir "dir-to-your-cudaq-local-installation"
+```
+
+- `--cudaq-install-dir` Path of your local CUDA-Q installation. E.g., `/usr/local/cudaq`.
+
+After the installation you can verify if the installation was successful, by running the following
+script:
+
+```shell
+nvq++ --list-targets
+  ...
+  mqssHPC
+  mqssMQP
+  ...
+```
+
+You can see listed the targets `mqssHPC` and `mqssMQP` corresponding to the HPC and MQP access to
+the MQSS, respectively.
 
 ### Running Tests
 
 We use the [GoogleTest](https://google.github.io/googletest/primer.html) framework for unit testing
-each MLIR pass in this collection. All tests are contained in the `test` directory. You can
-configure and build the project using CMake as follows:
+the MQP and HPC access to the MQSS using the MQSS CUDA-Q Adapter. All tests are contained in the
+`test` directory. You can configure and build the project using CMake as follows:
 
 ```shell
 bash build.sh --build-tests
 ```
 
-The executables used to run the tests can be found at `build/tests/`. To verify all the available
-tests, run:
-
-```shell
-ctest --test-dir build --output-on-failure
-```
+The executables used to run the tests can be found at `build/tests/`.
 
 ### Format for Comments
 

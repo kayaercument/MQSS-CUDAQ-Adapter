@@ -5,7 +5,7 @@
 # "License"); you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# https://github.com/Munich-Quantum-Software-Stack/passes/blob/develop/LICENSE
+# https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter/blob/develop/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -24,31 +24,33 @@ set(DOXYGEN_CONFIG_FILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
 
 # Set the input directories for doxygen, i.e., all files that contain source
 # code with documentation.
-set(DOXYGEN_INPUT_DIRS ${PROJECT_SOURCE_DIR}/include)
+set(DOXYGEN_INPUT_DIRS "")
 # This variable is only needed to setup the dependency tracking of CMake
 # correctly and is not passed to Doxygen. Whenever such a file is modified,
 # CMake detects that change and will rerun the Doxygen command instead of using
 # the cached result when the target `mlir_passes_docs`is built.
-file(GLOB_RECURSE DOXYGEN_INPUT_FILES ${PROJECT_SOURCE_DIR}/include/*.hpp
-     ${CMAKE_CURRENT_SOURCE_DIR}/*.md)
+file(GLOB_RECURSE DOXYGEN_INPUT_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.md)
+
 # After the variable above is correctly initialized, we can add the additional
 # files that are not source code but still part of the documentation. IMPORTANT:
 # The order the files with the static content are added here influences their
 # order in the generated documentation.
 set(DOXYGEN_INPUT_DIRS
-    # ${DOXYGEN_INPUT_DIRS}
+    ${DOXYGEN_INPUT_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/index.md
-    ${CMAKE_CURRENT_SOURCE_DIR}/faq.md
-    # ${CMAKE_CURRENT_SOURCE_DIR}/guide.md
-    # ${CMAKE_CURRENT_SOURCE_DIR}/cudaq-decompositions.md
-    # ${CMAKE_CURRENT_SOURCE_DIR}/cudaq-transpiler.md
-    # ${CMAKE_CURRENT_SOURCE_DIR}/templates.md
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/guide.md
+    ${CMAKE_CURRENT_SOURCE_DIR}/compilation-flow.md
+    ${CMAKE_CURRENT_SOURCE_DIR}/interfaces-diagram.md
+    ${CMAKE_CURRENT_SOURCE_DIR}/faq.md)
+
 # ${CMAKE_CURRENT_SOURCE_DIR}/tests.md
 
 # By default the files are separated by a semicolon. This is not what Doxygen
 # wants, so we replace it with a space.
 string(REPLACE ";" " " DOXYGEN_INPUT_DIRS "${DOXYGEN_INPUT_DIRS}")
+
+message(STATUS "INPUT DIRS")
+message(STATUS ${DOXYGEN_INPUT_DIRS})
 
 # Such that the content of other files than files listed in DOXYGEN_INPUT_DIRS
 # can be included with the `\include`or `\snippet` command, we need to add the
@@ -82,13 +84,10 @@ foreach(IMG_FILE IN LISTS IMG_FILES)
   file(COPY ${IMG_FILE} DESTINATION ${DOXYGEN_OUTPUT_DIR}/html/docs/_static/)
 endforeach()
 
-# Copy images to be shown in the mqss-passes
-file(GLOB IMG_FILES "_static/mqss-passes/*.png")
-# Iterate through IMG_FILES to copy each file
-foreach(IMG_FILE IN LISTS IMG_FILES)
-  file(COPY ${IMG_FILE}
-       DESTINATION ${DOXYGEN_OUTPUT_DIR}/html/docs/_static/mqss-passes)
-endforeach()
+# Copy images to be shown in the mqss-passes file(GLOB IMG_FILES
+# "_static/mqss-passes/*.png") Iterate through IMG_FILES to copy each file
+# foreach(IMG_FILE IN LISTS IMG_FILES) file(COPY ${IMG_FILE} DESTINATION
+# ${DOXYGEN_OUTPUT_DIR}/html/docs/_static/mqss-passes) endforeach()
 
 # Set the logo for the project.
 set(PROJECT_LOGO "mqss_logo.svg")
@@ -98,12 +97,13 @@ set(PROJECT_LOGO "mqss_logo.svg")
 # DOXYGEN_INPUT_DIRS.
 configure_file(${DOXYGEN_CONFIG_FILE_IN} ${DOXYGEN_CONFIG_FILE_OUT} @ONLY)
 
-# message(STATUS "Doxygen input files: ${DOXYGEN_INPUT_FILES}")
+message(STATUS "Doxygen input files: ${DOXYGEN_INPUT_FILES}")
 
 # Create a custom command to run Doxygen
 add_custom_command(
   OUTPUT ${DOXYGEN_OUTPUT_DIR}/html/index.html
-  DEPENDS ${DOXYGEN_CONFIG_FILE_IN}
+  DEPENDS ${DOXYGEN_INPUT_FILES}
+          ${DOXYGEN_CONFIG_FILE_IN}
           ${CMAKE_CURRENT_SOURCE_DIR}/header.html
           ${CMAKE_CURRENT_SOURCE_DIR}/layout.xml
           ${CMAKE_CURRENT_SOURCE_DIR}/style.css

@@ -8,7 +8,7 @@ Licensed under the Apache License, Version 2.0 with LLVM Exceptions (the
 "License"); you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-TODO
+https://github.com/Munich-Quantum-Software-Stack/MQSS-CUDAQ-Adapter/blob/develop/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -38,8 +38,13 @@ Stack (MQSS) CUDA-Q Adapter.
 
 The [FAQ](faq.md) page gives an overview over frequently asked questions.
 
+The [Compilation flow](compilation-flow.md) page give4es an overview of the compilation flow of
+CUDA-Q. And how a program can be compiled to sent tasks to the MQSS.
+
+The [Interfaces Diagram](interfaces-diagram.md) shows how the MQSS CUDA-Q Adapter is integrated into
+CUDA-Q. And how this can be modified/extended.
+
 #### Hands-On
 
-[Declaring Custom Passes](templates.md) page provides an step-by-step guide to show you how you can
-implement custom MLIR passes to be used into the MQSS. When you want to validate your custom MLIR
-passes, the [Development Guide](guide.md) page is a good starting point.
+When you want to install the CUDA-Q Adapter in your system, the [Installation Guide](guide.md) page
+is a good starting point.
