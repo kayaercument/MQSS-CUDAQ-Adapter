@@ -35,6 +35,19 @@ set(CMAKE_CXX_FLAGS "-w -fPIC")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -frtti -fexceptions")
 
+# Set default build type to Debug if none is specified
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE
+      Debug
+      CACHE STRING "Build type (Debug, Release)" FORCE)
+endif()
+
+# Define macros for Debug builds
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  message("Configuring for Debug mode")
+  add_compile_definitions(DEBUG)
+endif()
+
 # Tell where to find fetch content, etc.
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 include(cmake/ExternalDependencies.cmake)
