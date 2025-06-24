@@ -306,7 +306,9 @@ void processJob(const std::string &receivedMessage,
                                true);
     return;
   }
-
+#ifdef DEBUG
+  std::cout << "Received json job: " << jobData << std::endl;
+#endif
   if (!jobData.contains("name") || !jobData.contains("n_shots") ||
       !jobData.contains("circuit_files")) {
     replyServer.publishMessage(replyQueue, errorResponse.dump(), correlationId,
@@ -335,7 +337,7 @@ void processJob(const std::string &receivedMessage,
   // Construct the system call to run Python with the input
   std::string command =
       std::string("python3 ./SimulateKernelLoweredToLLVM.py -c tempCircuit.txt "
-                  "-o tempResults.txt -s 100");
+                  "-o tempResults.txt -s 1000");
   // Execute the command
   int result = system(command.c_str());
   // Check the result (0 means success)
