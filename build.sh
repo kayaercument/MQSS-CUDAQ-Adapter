@@ -65,7 +65,6 @@ done
 BUILD_DIR=${CURRENT_DIR}"/build"
 DEPS_DIR="${CURRENT_DIR}/extern"
 CUDAQ_DIR="${DEPS_DIR}/cuda-quantum"
-QRM_DIR="${DEPS_DIR}/QRM"
 
 # Create directories if they don't exist
 mkdir -p "${BUILD_DIR}"
@@ -119,7 +118,6 @@ cmake .. \
   -DLLVM_DIR="${LLVM_DIR}" \
   -DBUILD_CUDAQ_ADAPTER_TESTS="${BUILD_TESTS}"\
   -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
-  -DQRM_SOURCE_DIR="${QRM_DIR}"  \
   -DCUDAQ_SOURCE_DIR="${CUDAQ_DIR}"
 
 if [ $? -ne 0 ]; then

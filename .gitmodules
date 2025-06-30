@@ -2,7 +2,3 @@
 	path = extern/cuda-quantum
 	url = https://github.com/NVIDIA/cuda-quantum.git
   ignore=all
-[submodule "extern/QRM"]
-	path = extern/QRM
-	url = git@github.com:Munich-Quantum-Software-Stack/QRM.git
-	branch = QRM-quake-mlir
