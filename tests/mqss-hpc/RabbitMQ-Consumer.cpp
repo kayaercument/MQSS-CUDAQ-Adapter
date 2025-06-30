@@ -30,7 +30,7 @@ SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 * This source code and the accompanying materials are made available under    *
 * the terms of the Apache License 2.0 which accompanies this distribution.    *
 ******************************************************************************/
-#include "mqss/common/RabbitMQServer.hpp"
+#include "RabbitMQServer.hpp"
 
 #include <cstdlib>
 #include <cstring>
@@ -55,13 +55,11 @@ SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/Parser/Parser.h"
 // cudaq includes
+#include "ConnectionHandler.hpp"
 #include "common/JIT.h"
 #include "common/RuntimeMLIR.h"
 #include "cudaq/Optimizer/CodeGen/Pipelines.h"
-#include "mqss/ConnectionHandler.hpp"
 
-#define RABBITMQ_SERVER_ADDRESS "127.0.0.1"
-#define RABBITMQ_CUDAQ_PORT 5672
 #define CUDAQ_GEN_PREFIX_NAME "__nvqpp__mlirgen____"
 
 using namespace mqss;
