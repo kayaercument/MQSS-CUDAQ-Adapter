@@ -108,9 +108,6 @@ message(STATUS "CUDAQ bin ${CUDAQ_MLIR_RUNTIME_PATH}")
 
 include_directories(BEFORE ${CUDAQ_MAIN_INCLUDE_DIR}
                     ${CUDAQ_BINARY_DIR}/include ${CUDAQ_SOURCE_DIR}/runtime)
-# set QRM includes
-include_directories(BEFORE ${QRM_SOURCE_DIR}/include
-                    ${QRM_SOURCE_DIR}/include/mqss)
 
 # Validate CUDAQ dependencies
 if(NOT EXISTS ${CUDAQ_BINARY_DIR}/lib/libcudaq-mlir-runtime.so)
