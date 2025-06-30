@@ -2,6 +2,3 @@
 	path = extern/cuda-quantum
 	url = https://github.com/NVIDIA/cuda-quantum.git
   ignore=all
-[submodule "extern/QRM"]
-	path = extern/QRM
-	url = https://github.com/mletras89/QRM-mlir.git
