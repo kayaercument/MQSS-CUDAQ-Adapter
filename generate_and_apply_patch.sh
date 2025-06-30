@@ -1,6 +1,7 @@
 #!/bin/bash
-# --- Configuration ---
-FORK_URL="https://github.com/mletras89/cuda-quantum.git"
+# --- Configuration --
+#TODO: This has to be moved to the MQSS github
+FORK_URL="git@gitlab-ce.lrz.de:lrz-qct-qis/cuda-quantum.git"
 UPSTREAM_URL="https://github.com/NVIDIA/cuda-quantum.git"
 UPSTREAM_COMMIT="1d62d8d"
 FORK_BRANCH="MQSS-Integration"
