@@ -46,7 +46,13 @@ We recommend to follow the instructions of installation described in the followi
    cd MQSS-CUDAQ-Adapter
    ```
 
-3. Run the following script to configure this project and set up the MQSS CUDA-Q Adapter:
+3. Run the following command to update the sub-modules of the project:
+
+   ```sh
+   git submodule update --init --recursive
+   ```
+
+4. Run the following script to configure this project and set up the MQSS CUDA-Q Adapter:
 
    ```sh
    bash generate_and_apply_patch.sh
