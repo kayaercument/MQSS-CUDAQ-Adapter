@@ -72,60 +72,12 @@ mkdir -p "${BUILD_DIR}"
 # Navigate to the CUDA Quantum directory
 cd "${CUDAQ_DIR}" || { echo "Failed to navigate to ${CUDAQ_DIR}."; exit 1; }
 
-# Create a build directory
-mkdir -p build && cd build || { echo "Failed to create or navigate to build directory.";
-exit 1; }
-mkdir -p build  || { echo "Failed to create build directory."; exit 1; }
-
 # here I have to update those files that I have to build the MQSS target backends
-#bash scripts/build_cudaq.sh -j"${NUM_JOBS}"
-
-# Configure CUDA Quantum using CMake
-echo "Configuring CUDA Quantum with CMake..."
-cmake -G Ninja \
-  -DMLIR_DIR="${MLIR_DIR}" \
-  -DClang_DIR="${CLANG_DIR}" \
-  -DLLVM_DIR="${LLVM_DIR}" \
-  ..
-
+echo "Installing CUDA-Q with MQSS CUDA-Q Adapter..."
+bash scripts/build_cudaq.sh -j"${NUM_JOBS}"
 if [ $? -ne 0 ]; then
-  echo "Cuda quantum with MQSS interfaces failed to build."
+  echo "Failed to install MQSS CUDA-Q Adapter"
   exit 1
 fi
 
-# Build the cudaq-mlir-runtime target using Ninja
-echo "Building cudaq-mlir-runtime target with ${NUM_JOBS} jobs..."
-ninja -j"${NUM_JOBS}" cudaq-common cudaq cudaq-builder cudaq-mlir-runtime cudaq-rest-qpu nvqir nvqir-qpp cudaq-platform-default cudaq-operator cudaq-serverhelper-mqss-hpc cudaq-serverhelper-mqss-mqp
-
-if [ $? -ne 0 ]; then
-  echo "Failed to build cudaq-mlir-runtime target."
-  exit 1
-fi
-
-echo "Build cudaq libraries completed successfully!"
-
-echo ${BUILD_DIR}
-cd  "${BUILD_DIR}" || { echo "Failed to navigate back to the original directory."; exit 1; }
-
-echo "Configuring the MQSS CudaQ Adapter repository CMake..."
-cmake .. \
-  -DCMAKE_C_COMPILER=gcc \
-  -DCMAKE_CXX_COMPILER=g++ \
-  -DBUILD_CUDAQ_ADAPTER_DOCS="${BUILD_DOCS}"\
-  -DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}\
-  -DMLIR_DIR="${MLIR_DIR}" \
-  -DClang_DIR="${CLANG_DIR}" \
-  -DLLVM_DIR="${LLVM_DIR}" \
-  -DBUILD_CUDAQ_ADAPTER_TESTS="${BUILD_TESTS}"\
-  -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
-  -DCUDAQ_SOURCE_DIR="${CUDAQ_DIR}"
-
-if [ $? -ne 0 ]; then
-  echo "CMake configuration failed."
-  exit 1
-fi
-
-echo "Building the MQSS CudaQ Adapter with ${NUM_JOBS} jobs..."
-make -j"${NUM_JOBS}"
-#make install
 echo "Build of the MQSS CudaQ Adapter completed successfully!..."
