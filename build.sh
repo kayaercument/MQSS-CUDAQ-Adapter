@@ -6,9 +6,6 @@ CURRENT_DIR=$(pwd)
 INSTALL_PATH="${INSTALL_PATH:-$HOME}"
 # Default values
 NUM_JOBS=1  # Default number of jobs
-BUILD_DOCS=OFF  # Default: Do not build documentation
-BUILD_TESTS=OFF  # Default: Do not build tests
-BUILD_TYPE="Release"  # Default: Release mode
 
 # Default directories (can be overridden by arguments)
 MLIR_DIR="/opt/llvm/lib/cmake/mlir"
@@ -23,10 +20,6 @@ while [[ $# -gt 0 ]]; do
       NUM_JOBS="$2"
       shift 2
       ;;
-		--debug)
-    	BUILD_TYPE="Debug"
-    	shift
-    	;;
     --mlir-dir)
       MLIR_DIR="$2"
       shift 2
@@ -43,18 +36,6 @@ while [[ $# -gt 0 ]]; do
       LLVM_DIR="$2"
       shift 2
       ;;
-    --build-tools)
-      BUILD_TOOLS=ON
-      shift
-      ;;
-    --build-docs)
-      BUILD_DOCS=ON
-      shift
-      ;;
-    --build-tests)
-      BUILD_TESTS=ON
-      shift
-      ;;
     *)
       echo "Unknown option: $1"
       exit 1
@@ -62,12 +43,8 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-BUILD_DIR=${CURRENT_DIR}"/build"
 DEPS_DIR="${CURRENT_DIR}/extern"
 CUDAQ_DIR="${DEPS_DIR}/cuda-quantum"
-
-# Create directories if they don't exist
-mkdir -p "${BUILD_DIR}"
 
 # Navigate to the CUDA Quantum directory
 cd "${CUDAQ_DIR}" || { echo "Failed to navigate to ${CUDAQ_DIR}."; exit 1; }
