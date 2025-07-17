@@ -22,9 +22,9 @@
 
 cmake_minimum_required(VERSION 3.22.1)
 project(
-  QuantumResourceManager
+  Documentation-CUDA-Q-Adapter
   VERSION 0.1
-  DESCRIPTION "Quantum Resource Manager"
+  DESCRIPTION "Documentation of the CUDA-Q Adapter"
   LANGUAGES C CXX)
 
 # Set the C++ standard
