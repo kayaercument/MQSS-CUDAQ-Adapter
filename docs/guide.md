@@ -77,42 +77,27 @@ located:
 cd /workspaces/MQSS-CUDAQ-Adapter
 ```
 
-### Configure and Build
+### Build and install
 
 Building the project requires a C++ compiler supporting _C11_ and a minimum CMake version of _3.19_.
 The example devices and the tests require a C++ compiler supporting _C++17_ and _C++20_ dialects.
 
-The MQSS CUDA-Q Adapter uses CMake as its build system. However, we provide an script `build.sh`
-that first builds the required Cuda-Q libraries. Then, the script builds the MQSS CUDA-Q Adapter
-project. You can configure and build the project as follows:
+The script `generate_and_apply_patch.sh` clone the source code of CUDA-Q and fetch also the MQSS
+CUDA-Q Adapter. You need to rebuild the entire CUDA-Q and install. After this the CUDA-Q compiler
+will show `mqMQP` when running `nvq++ --list-targets`.
 
 ```shell
-bash build.sh --jobs 5 --debug --mlir-dir "dir-to-mlir" --clang-dir "dir-to-clang"
-              --llvm-dir "dir-to-llvm" --build-tests --build-docs
+bash build.sh --jobs 5
 ```
 
 In the following, we describe each of the arguments accepted by `build.sh`.
 
 - `--jobs` (**optional**) The number of jobs utilized to configure and compile this project. If not
   specified, a single job is used to compile the project.
-- `--debug` (**optional**) Used to show debug information. If you want to build the project without
-  debug information, do not include it.
+
 - `--mlir-dir` Path of your MLIR installation. E.g., `/opt/llvm/lib/cmake/mlir/`
 - `--clang-dir` Path of your Clang installation.
 - `--llvm-dir` Path of your LLVM installation.
-- `--build-tests` (**optional**) Include it if you want to build the tests of this project.
-- `--build-docs` (**optional**) Include it if you want to build this documentation.
-
-### Installing
-
-To install the MQSS CUDA-Q Adapter into your local CUDA-Q installation, you have to run the
-following script:
-
-```shell
-bash MQSS-CUDA-Q-Adapter-install.sh --cudaq-install-dir "dir-to-your-cudaq-local-installation"
-```
-
-- `--cudaq-install-dir` Path of your local CUDA-Q installation. E.g., `/usr/local/cudaq`.
 
 After the installation you can verify if the installation was successful, by running the following
 script:
@@ -120,25 +105,11 @@ script:
 ```shell
 nvq++ --list-targets
   ...
-  mqssHPC
   mqssMQP
   ...
 ```
 
-You can see listed the targets `mqssHPC` and `mqssMQP` corresponding to the HPC and MQP access to
-the MQSS, respectively.
-
-### Running Tests
-
-We use the [GoogleTest](https://google.github.io/googletest/primer.html) framework for unit testing
-the MQP and HPC access to the MQSS using the MQSS CUDA-Q Adapter. All tests are contained in the
-`test` directory. You can configure and build the project using CMake as follows:
-
-```shell
-bash build.sh --build-tests
-```
-
-The executables used to run the tests can be found at `build/tests/`.
+You can see listed the targets `mqssMQP` corresponding to the MQP access to the MQSS.
 
 ### Format for Comments
 
@@ -161,10 +132,10 @@ seamlessly integrated into the CMake build system.
 
 ### Building the Documentation
 
-The documentation can be built configuring the CMake as follows:
+The documentation can be built using the `build_doc.sh` script.
 
 ```shell
-bash build.sh --build-docs
+bash build_doc.sh --build-docs
 ```
 
 The generated webpage can be inspected by opening the file in `docs/html/index.html` in the CMake

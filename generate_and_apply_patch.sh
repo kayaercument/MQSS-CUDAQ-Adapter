@@ -4,7 +4,7 @@
 FORK_URL="git@gitlab-ce.lrz.de:lrz-qct-qis/cuda-quantum.git"
 UPSTREAM_URL="https://github.com/NVIDIA/cuda-quantum.git"
 UPSTREAM_COMMIT="1d62d8d"
-FORK_BRANCH="MQSS-Integration"
+FORK_BRANCH="MQSS-v1"
 BASE_BRANCH="main" # or master, depending on upstream
 FOLDER_PATH="runtime"
 PATCH_FILE="feature_patch.diff"

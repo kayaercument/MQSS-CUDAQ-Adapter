@@ -102,13 +102,13 @@ __qpu__ void bell() {
 - To target MQSS via **MQP** (REST API)
 
   ```sh
-  nvq++ --target mqssMQP source.cpp
+  MQSS_MQP_TOKEN=dir/to/token/file nvq++ --target mqssMQP source.cpp
   ```
 
-- To target MQSS via **HPC**
+- To target MQSS via **HPC** (coming soon, not supported yet by the MQSS v1)
 
   ```sh
-  nvq++ --target mqssHPC source.cpp
+  MQSS_MQP_TOKEN=dir/to/token/file nvq++ --target mqssHPC source.cpp
   ```
 
 ## Configuration File
@@ -125,35 +125,32 @@ export CUDAQ_MQSS_CONFIGURATION=$HOME/.mqss_config
 
 The configuration file might contain the following information:
 
-- `n_qbits` is the number of qubits required by the submitted task.
 - `n_shots` is the number of shots required to execute the quantum task. This is annotated by MQSS
   CUDA-Q Adapter and it is not required to be defined in the configuration file.
 - `transpiler_flag` is a flag indicating if the MQSS has to perform transpilation. `true` indicates
   the flag is active, `false` otherwise.
-- `circuit_files` is a list with the circuit files.
-- `submit_time` is the submission time of the task. This is an notated by MQSS CUDA-Q Adapter on
-  each submitted task and it is not required to be defined in the configuration file.
+- `submit_time` is the submission time of the task. This is annotated by MQSS CUDA-Q Adapter on each
+  submitted task and it is not required to be defined in the configuration file.
 - `circuit_file_type` is the circuit type submitted to the MQSS. The supported file types at the
-  moment are: QASM, Quake, and QIR.
+  moment are: QASMi, Quake, and QIR.
 - `preferred_qpu` specifies the selected preferred QPU where the submitted jobs will be executed.
 - `restricted_resource_names` specifies the restricted QPUs when submitting a job the MQSS.
 - `priority` integer value that specified the priority level of the submitted.
 - `user_identity` specifies the identity of the user.
 - `optimisation_level` specifies the optimization level. Supported levels: 0, 1, 2, and 3.
 - `via_hpc` is a flag specifying if the job is submitted via HPC or MQP. `true` indicates the job is
-  submitted via HPC, `false` via MQP.
+  submitted via HPC, `false` via MQP. This is annotated by MQSS CUDA-Q Adapter on each submitted
+  task and it is not required to be defined in the configuration file.
 
 In the following an example of a configuration file:
 
 ```sh
-n_qbits: 5
 n_shots: 1000
 transpiler_flag: true
-circuit_file_type: quake
-preferred_qpu: iqm
-restricted_resource_names: aqt
+circuit_file_type: qasm
+preferred_qpu: QExa20
+restricted_resource_names: AQT20
 priority: 1
 user_identity: YOUR IDENTITY
 optimisation_level: 3
-via_hpc: false
 ```
