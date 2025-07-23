@@ -102,26 +102,33 @@ __qpu__ void bell() {
 - To target MQSS via **MQP** (REST API)
 
   ```sh
-  MQSS_MQP_TOKEN=dir/to/token/file nvq++ --target mqssMQP source.cpp
+  nvq++ --target mqssMQP your_application_source.cpp -o your_binary_application
   ```
 
 - To target MQSS via **HPC** (coming soon, not supported yet by the MQSS v1)
 
   ```sh
-  MQSS_MQP_TOKEN=dir/to/token/file nvq++ --target mqssHPC source.cpp
+  nvq++ --target mqssHPC your_application_source.cpp -o your_binary_application
   ```
 
-## Configuration File
+## Executing your with Configuration File and Credentials
+
+Once the binary of your application was successfully generated. You can execute your application to
+submit quantum circuits to the MQSS, as follows:
+
+```sh
+MQSS_MQP_TOKEN=your/token/file/path CUDAQ_MQSS_CONFIGURATION=/your/configuration/file/path ./your_binary_application
+```
+
+The environment variable `MQSS_MQP_TOKEN` is used to specify the path of a text file containing a
+token to access to the MQP. To generate a valid token please go to the
+[Munich Quantum Portal (MQP)](https://portal.quantum.lrz.de/).
 
 A configuration file is a requirement to send additional information to be used at runtime by the
 MQSS.
 
 The environment variable `CUDAQ_MQSS_CONFIGURATION` has to be defined in order to include the
-configuration file during compilation
-
-```sh
-export CUDAQ_MQSS_CONFIGURATION=$HOME/.mqss_config
-```
+configuration file during runtime.
 
 The configuration file might contain the following information:
 
