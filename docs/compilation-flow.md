@@ -111,7 +111,7 @@ __qpu__ void bell() {
   nvq++ --target mqssHPC your_application_source.cpp -o your_binary_application
   ```
 
-## Executing your with Configuration File and Credentials
+## Executing your Application with Configuration File and Credentials
 
 Once the binary of your application was successfully generated. You can execute your application to
 submit quantum circuits to the MQSS, as follows:
