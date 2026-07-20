@@ -1,0 +1,37 @@
+name: mqss
+description: "CUDA-Q target for mqss."
+config:
+  # Tell DefaultQuantumPlatform what QPU subtype to use
+  platform-qpu: mqss
+  gen-target-backend: true
+  # Add the pasqal-qpu library to the link list
+  link-libs: ["-lmqss-adapter"]
+  # Library mode is only for simulators, physical backends must turn this off
+  library-mode: false
+  # Define the JIT lowering pipeline
+  jit-mid-level-pipeline: "lower-to-cfg,quake-to-cc-prep,func.func(expand-control-veqs,combine-quantum-alloc,canonicalize,combine-measurements)"
+  # Tell the rest-qpu that we are generating OpenQASM 2.0.
+  codegen-emission: qasm2
+
+target-arguments:
+  - key: token
+    required: true
+    type: string
+    platform-arg: token
+    help-string: "MQP Token"
+  - key: url_or_queue
+    required: true
+    type: string
+    platform-arg: url_or_queue
+    help-string: "MQP url_or_queue"
+  - key: is_hpc
+    required: true
+    type: string
+    platform-arg: is_hpc
+    help-string: "MQP is_hpc"
+  - key: qpu
+    required: true
+    type: string
+    platform-arg: qpu
+    help-string: "MQSS QPU name"
+

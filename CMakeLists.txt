@@ -23,36 +23,18 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(
   Documentation-CUDA-Q-Adapter
-  VERSION 0.1
+  VERSION 0.2
   DESCRIPTION "Documentation of the CUDA-Q Adapter"
   LANGUAGES C CXX)
 
-# Set the C++ standard
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED on)
-set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
-set(CMAKE_CXX_FLAGS "-w -fPIC")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -frtti -fexceptions")
+set(CMAKE_EXPORT_COMPILE_COMMANDS
+    ON
+    CACHE BOOL "Export compile commands" FORCE)
 
-# Set default build type to Debug if none is specified
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE
-      Debug
-      CACHE STRING "Build type (Debug, Release)" FORCE)
-endif()
-
-# Define macros for Debug builds
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  message("Configuring for Debug mode")
-  add_compile_definitions(DEBUG)
-endif()
-
-# Tell where to find fetch content, etc.
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-include(cmake/ExternalDependencies.cmake)
 
-# add documentation
-if(BUILD_CUDAQ_ADAPTER_DOCS)
-  add_subdirectory(docs)
-endif()
+set(CUDAQ_LIBRARY_MODE TRUE)
+find_package(CUDAQ REQUIRED)
+find_package(mqss-client REQUIRED)
+
+add_subdirectory(src)
