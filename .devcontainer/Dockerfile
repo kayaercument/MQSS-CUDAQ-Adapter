@@ -12,4 +12,3 @@ ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 WORKDIR /home
 
 CMD ["bash"]
-
